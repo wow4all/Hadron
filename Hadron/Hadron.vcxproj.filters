@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\hadron">
+      <UniqueIdentifier>{eb421905-db65-45b4-8a43-21db23b4a47b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\hadron">
+      <UniqueIdentifier>{8d331d1b-e0f3-4ae3-bc88-74eb0e43d73c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\hadron\math">
+      <UniqueIdentifier>{a70017dc-7242-4038-a568-8768bcdd84af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\hadron\math">
+      <UniqueIdentifier>{27a9b90d-aaa0-4c75-a9eb-72be27abe679}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\hadron\core">
+      <UniqueIdentifier>{9235c386-a9ed-4ee2-a501-c3a1201519d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\hadron\entity">
+      <UniqueIdentifier>{ae70df33-e533-4063-80fd-13525bb9f10e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\hadron\core">
+      <UniqueIdentifier>{a8503c03-a64a-4efe-b6f9-bc4c85dee8ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\hadron\entity">
+      <UniqueIdentifier>{bd251961-3f0c-4e78-ba2f-0fbd9d1dafba}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="hadron\entity\particle.cpp">
+      <Filter>Source Files\hadron\entity</Filter>
+    </ClCompile>
+    <ClCompile Include="hadron\entity\particleforcegenerator.cpp">
+      <Filter>Source Files\hadron\entity</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="hadron\math\vector3.hpp">
+      <Filter>Header Files\hadron\math</Filter>
+    </ClInclude>
+    <ClInclude Include="hadron\math.hpp">
+      <Filter>Header Files\hadron</Filter>
+    </ClInclude>
+    <ClInclude Include="hadron\core\precision.hpp">
+      <Filter>Header Files\hadron\core</Filter>
+    </ClInclude>
+    <ClInclude Include="hadron\core.hpp">
+      <Filter>Header Files\hadron</Filter>
+    </ClInclude>
+    <ClInclude Include="hadron\entity\particle.hpp">
+      <Filter>Header Files\hadron\entity</Filter>
+    </ClInclude>
+    <ClInclude Include="hadron\entity.hpp">
+      <Filter>Header Files\hadron</Filter>
+    </ClInclude>
+    <ClInclude Include="hadron\hadron.hpp">
+      <Filter>Header Files\hadron</Filter>
+    </ClInclude>
+    <ClInclude Include="hadron\entity\particleforcegenerator.hpp">
+      <Filter>Header Files\hadron\entity</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

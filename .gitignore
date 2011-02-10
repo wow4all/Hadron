@@ -1,0 +1,14 @@
+Debug
+Debug/*
+Release
+Release/*
+ipch
+ipch/*
+*.exe
+*.o
+*.obj
+*.ncb
+*.sdf
+*.suo
+*.user
+Thumbs.db
