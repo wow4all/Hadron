@@ -122,21 +122,31 @@ int main()
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
 
-	const GLfloat LIGHT_POS[3] = { 0.0f, 0.0f, 0.0f };
+	const GLfloat LIGHT_POS[] = { 0.0f, 0.0f, 0.0f };
 	glLightfv(GL_LIGHT0, GL_POSITION, LIGHT_POS);
 
-	const int MAX_PARTICLES = 1000;
-	Hadron::Particle particle[MAX_PARTICLES];
+	Hadron::Particle a, b;
+	a.SetPosition(Hadron::Vector3<real>((real)0.0, (real)0.0, (real)0.0));
+	a.SetVelocity((real)rand(-30.0f, 30.0f), (real)rand(-30.0f, 30.0f), (real)rand(-30.0f, 30.0f));
+	a.SetAcceleration(Hadron::Vector3<real>::HIGH_GRAVITY);
+	a.SetAlive(true);
+	a.SetMass((real)200.0);
 
-	Hadron::ParticleGravitation gravitor;
-	gravitor.SetGravityPosition((real)0.0, (real)0.0, (real)0.0);
+	b.SetPosition(Hadron::Vector3<real>((real)0.0, (real)0.0, (real)0.0));
+	//b.SetVelocity((real)rand(-30.0f, 30.0f), (real)rand(-30.0f, 30.0f), (real)rand(-30.0f, 30.0f));
+	b.SetAcceleration(Hadron::Vector3<real>::ZERO);
+	b.SetAlive(true);
+	b.SetMass((real)200.0);
 
 	Hadron::ParticleForceRegistry registry;
+	Hadron::ParticleSpring aSpring(&b, (real)3000.0, (real)20.0);
+	Hadron::ParticleSpring bSpring(&a, (real)3000.0, (real)20.0);
 
-	for(int i = 0; i < MAX_PARTICLES; i++)
-	{
-		registry.Add(&particle[i], &gravitor);
-	}
+	Hadron::ParticleDrag drag((real)1.0, (real)2.0);
+
+	registry.Add(&a, &aSpring);
+	//registry.Add(&b, &bSpring);
+	registry.Add(&a, &drag);
 
 	GLuint LIST_CUBE = MakeCubeList();
 
@@ -154,15 +164,7 @@ int main()
 				break;
 
 			case(sf::Event::KeyPressed):
-				if(e.Key.Code == sf::Key::Space)
-				{
-					int index = sf::Randomizer::Random(0, MAX_PARTICLES - 1);
-					particle[index].SetPosition(Hadron::Vector3<real>(rand(-10.0f, 10.0f), rand(-10.0f, 10.0f), rand(-10.0f, 10.0f)));
-					particle[index].SetVelocity(Hadron::Vector3<real>(rand(-30.0f, 30.0f), rand(-30.0f, 30.0f), rand(-30.0f, 30.0f)));
-					particle[index].SetAcceleration(Hadron::Vector3<real>::ZERO);
-					particle[index].SetMass((real)1.0);
-					particle[index].SetAlive(true);
-				}
+				if(e.Key.Code == sf::Key::Space) a.ApplyForce((real)0.0, a.GetMass() * (real)400000.0, (real)0.0);
 			}
 		}
 
@@ -170,10 +172,17 @@ int main()
 		time += frameTime;
 
 		registry.ApplyForces(frameTime);
-		for(int i = 0; i < MAX_PARTICLES; i++)
-		{
-			particle[i].Update((real)frameTime);
-		}
+		a.Update(frameTime);
+		b.Update(frameTime);
+
+		if(a.GetY() < (real)-30.0) a.SetVelocityY(abs(a.GetVelocity().y * -0.9));
+		if(b.GetY() < (real)-30.0) b.SetVelocityY(abs(b.GetVelocity().y * -0.9));
+
+		if(a.GetX() < (real)-30.0 || a.GetX() > (real)30.0) a.SetVelocityX(a.GetVelocity().x * -0.9);
+		if(b.GetX() < (real)-30.0 || b.GetX() > (real)30.0) b.SetVelocityX(b.GetVelocity().x * -0.9);
+
+		if(a.GetZ() < (real)-30.0 || a.GetZ() > (real)30.0) a.SetVelocityZ(a.GetVelocity().z * -0.9);
+		if(b.GetZ() < (real)-30.0 || b.GetZ() > (real)30.0) b.SetVelocityZ(b.GetVelocity().z * -0.9);
 
 		window.Clear();
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -183,18 +192,31 @@ int main()
 
 		// Move the camera a little
 		glTranslatef(0.0f, 0.0, -50.0f);
-		glRotatef(time * 30.0f, 0.0f, 1.0f, 0.0f);
 
-		for(int i = 0; i < MAX_PARTICLES; i++)
-		{
-			glPushMatrix();
+		glBegin(GL_TRIANGLE_FAN);
+		glVertex3f(-31.0f, -31.0f, -31.0f);
+		glVertex3f(-31.0f, -31.0f, 31.0f);
+		glVertex3f(31.0f, -31.0f, 31.0f);
+		glVertex3f(31.0f, -31.0f, -31.0f);
+		glEnd();
 
-			glTranslatef(particle[i].GetX(), particle[i].GetY(), particle[i].GetZ());
+		glPushMatrix();
+		glTranslatef(a.GetX(), a.GetY(), a.GetZ());
+		glCallList(LIST_CUBE);
+		glPopMatrix();
 
-			glCallList(LIST_CUBE);
+		glPushMatrix();
+		glTranslatef(b.GetX(), b.GetY(), b.GetZ());
+		glCallList(LIST_CUBE);
+		glPopMatrix();
 
-			glPopMatrix();
-		}
+		glDisable(GL_LIGHTING);
+		glColor3f(0.5f, 1.0f, 0.0f);
+		glBegin(GL_LINES);
+		glVertex3f(a.GetX(), a.GetY(), a.GetZ());
+		glVertex3f(b.GetX(), b.GetY(), b.GetZ());
+		glEnd();
+		glEnable(GL_LIGHTING);
 
 		window.Display();
 	}

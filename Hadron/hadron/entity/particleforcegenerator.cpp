@@ -72,4 +72,61 @@ namespace Hadron {
 
 		P->ApplyForce(xDiff * force, yDiff * force, zDiff * force);
 	}
+
+	ParticleDrag::ParticleDrag(real VelCoeff, real VelSqCoeff):
+	k1(VelCoeff),
+	k2(VelSqCoeff)
+	{ }
+
+	void ParticleDrag::ApplyForce(Particle *P, real dT)
+	{
+		Vector3<real> force = P->GetVelocity();
+
+		// Calculate total drag coefficient
+		real dragCoeff = force.Length();
+		dragCoeff = (k1 * dragCoeff) + (k2 * dragCoeff * dragCoeff);
+
+		P->ApplyForce(force.Normalised() * -dragCoeff);
+	}
+
+	ParticleSpring::ParticleSpring():
+	other(NULL),
+	k((real)0.0),
+	restLength((real)30.0)
+	{ }
+
+	ParticleSpring::ParticleSpring(Particle *Other, real SpringConstant, real RestLength):
+	other(Other),
+	k(SpringConstant),
+	restLength(RestLength)
+	{ }
+
+	void ParticleSpring::SetParentParticle(Particle *Other)
+	{
+		other = Other;
+	}
+
+	void ParticleSpring::SetSpringConstant(real K)
+	{
+		k = K;
+	}
+
+	void ParticleSpring::SetRestLength(real RestLength)
+	{
+		restLength = RestLength;
+	}
+
+	void ParticleSpring::ApplyForce(Particle *P, real dT)
+	{
+		if(other == NULL) return;
+		else if(!P->IsAlive() || !other->IsAlive()) return;
+
+		// Spring's vector
+		Vector3<real> springVec = P->GetPosition() - other->GetPosition();
+
+		// The force to apply
+		Vector3<real> force = springVec.Normalised() * (-k * (springVec.Length() - restLength));
+
+		P->ApplyForce(force);
+	}
 };

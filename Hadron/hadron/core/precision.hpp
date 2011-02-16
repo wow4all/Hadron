@@ -11,7 +11,7 @@ namespace Hadron {
 	#define real_sin sinf
 	#define real_cos cosf
 	#define real_tan tanf
-	#define real_abs(n) fabs((real)n);
+	#define real_abs fabsf;
 	#define REAL_MAX FLT_MAX;
 #else
 	typedef double real;
@@ -19,7 +19,7 @@ namespace Hadron {
 	#define real_sin sin
 	#define real_cos cos
 	#define real_tan tan
-	#define real_abs(n) abs((real)n);
+	#define real_abs(n)(abs((double)n))
 	#define REAL_MAX DBL_MAX;
 #endif
 };

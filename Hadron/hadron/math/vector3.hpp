@@ -48,6 +48,7 @@ namespace Hadron {
 		T LengthSquared() const;
 		real Dot(const Vector3<T> &Vec) const;
 		const Vector3<T> &Cross(const Vector3<T> &Vec) const;
+		const Vector3<T> &Normalised() const;
 
 		// Setters
 		void AddScaledVector(const Vector3<T> &Vec, real Scale);
@@ -194,6 +195,16 @@ namespace Hadron {
 			z * Vec.x - x * Vec.z,
 			x * Vec.y - y * Vec.x
 		);
+	}
+
+	// Returns the unit vector of our vector
+	template<typename T>
+	const Vector3<T> &Vector3<T>::Normalised() const
+	{
+		real len = Length();
+		if(len == 0) return Vector3<T>::ZERO;
+		
+		return Vector3<T>(x / len, y / len, z / len);
 	}
 
 	template<typename T>

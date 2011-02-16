@@ -5,6 +5,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Hadron", "Hadron\Hadron.vcx
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HadronParticles", "HadronParticles\HadronParticles.vcxproj", "{0035775C-6268-4907-B7E6-EF20DE09ED7D}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HadronSprings", "HadronSprings\HadronSprings.vcxproj", "{BB5D1AFD-376D-4E64-AAE5-7A90802088E5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -19,6 +21,10 @@ Global
 		{0035775C-6268-4907-B7E6-EF20DE09ED7D}.Debug|Win32.Build.0 = Debug|Win32
 		{0035775C-6268-4907-B7E6-EF20DE09ED7D}.Release|Win32.ActiveCfg = Release|Win32
 		{0035775C-6268-4907-B7E6-EF20DE09ED7D}.Release|Win32.Build.0 = Release|Win32
+		{BB5D1AFD-376D-4E64-AAE5-7A90802088E5}.Debug|Win32.ActiveCfg = Debug|Win32
+		{BB5D1AFD-376D-4E64-AAE5-7A90802088E5}.Debug|Win32.Build.0 = Debug|Win32
+		{BB5D1AFD-376D-4E64-AAE5-7A90802088E5}.Release|Win32.ActiveCfg = Release|Win32
+		{BB5D1AFD-376D-4E64-AAE5-7A90802088E5}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

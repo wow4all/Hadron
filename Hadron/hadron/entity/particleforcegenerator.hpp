@@ -60,6 +60,33 @@ namespace Hadron {
 		void SetGravityPosition(real X, real Y, real Z);
 		void ApplyForce(Particle *P, real dT);
 	};
+
+	class ParticleDrag : public ParticleForceGenerator
+	{
+	private:
+		real k1;	// Velocity drag coefficient
+		real k2;	// Velocity squared drag coefficient
+
+	public:
+		ParticleDrag(real VelCoeff, real VelSqCoeff);
+		void ApplyForce(Particle *P, real dT);
+	};
+
+	class ParticleSpring : public ParticleForceGenerator
+	{
+	private:
+		Particle *other;
+		real k;
+		real restLength;
+
+	public:
+		ParticleSpring();
+		ParticleSpring(Particle *Other, real SpringConstant, real RestLength);
+		void SetParentParticle(Particle *Other);
+		void SetSpringConstant(real K);
+		void SetRestLength(real RestLength);
+		void ApplyForce(Particle *P, real dT);
+	};
 };
 
 #endif // HADRON_PARTICLEFORCEGENERATOR_HPP

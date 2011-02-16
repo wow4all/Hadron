@@ -39,6 +39,16 @@ namespace Hadron {
 		return alive ? (real)(0.5 * (1.0 / inverseMass) * velocity.LengthSquared()) : (real)0.0;
 	}
 
+	const Vector3<real> &Particle::GetVelocity() const
+	{
+		return velocity;
+	}
+
+	const Vector3<real> &Particle::GetPosition() const
+	{
+		return position;
+	}
+
 	real Particle::GetX() const
 	{
 		return position.x;

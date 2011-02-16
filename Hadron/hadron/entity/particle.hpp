@@ -41,9 +41,12 @@ namespace Hadron {
 		// Getters
 		real GetKineticEnergy() const;
 
+		const Vector3<real> &GetPosition() const;
 		real GetX() const;
 		real GetY() const;
 		real GetZ() const;
+
+		const Vector3<real> &GetVelocity() const;
 
 		real GetMass() const;
 
